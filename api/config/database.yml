@@ -1,0 +1,44 @@
+default: &default
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  primary:
+    <<: *default
+    database: db/development.sqlite3
+  queue:
+    <<: *default
+    database: db/queue.sqlite3
+    migrations_paths: db/queue_migrate
+  cache:
+    <<: *default
+    database: db/cache.sqlite3
+    migrations_paths: db/cache_migrate
+
+test:
+  primary:
+    <<: *default
+    database: db/test.sqlite3
+  queue:
+    <<: *default
+    database: db/test_queue.sqlite3
+    migrations_paths: db/queue_migrate
+  cache:
+    <<: *default
+    database: db/test_cache.sqlite3
+    migrations_paths: db/cache_migrate
+
+production:
+  primary:
+    adapter: postgresql
+    url: <%= ENV['DATABASE_URL'] %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  queue:
+    <<: *default
+    database: /data/db/queue.sqlite3
+    migrations_paths: db/queue_migrate
+  cache:
+    <<: *default
+    database: /data/db/cache.sqlite3
+    migrations_paths: db/cache_migrate

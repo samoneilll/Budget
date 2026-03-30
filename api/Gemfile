@@ -1,0 +1,24 @@
+source "https://rubygems.org"
+ruby "4.0.1"
+
+gem "rails", "~> 8.0"
+gem "sqlite3", ">= 2.1"
+gem "pg", ">= 1.5"
+gem "puma", ">= 5.0"
+gem "solid_queue"
+gem "solid_cache"
+gem "rack-cors"
+gem "bootsnap", require: false
+
+# HTTP client for PocketSmith API
+gem "http"
+gem "link_header"
+
+# Claude API
+gem "anthropic"
+
+group :development, :test do
+  gem "debug", platforms: %i[mri windows]
+  gem "pry-rails"
+  gem "dotenv-rails"
+end

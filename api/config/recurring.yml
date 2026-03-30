@@ -1,0 +1,11 @@
+production:
+  sync_transactions:
+    class: SyncJob
+    queue: default
+    args:
+      days_back: 2
+    schedule: every day at 6am Pacific/Auckland
+  categorise_transactions:
+    class: CategoriseJob
+    queue: default
+    schedule: every hour
