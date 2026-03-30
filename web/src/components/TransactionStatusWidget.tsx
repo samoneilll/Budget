@@ -6,6 +6,7 @@ import { useTheme } from '../context/ThemeContext'
 interface Status {
   processed: number
   imported: number
+  pending: number
   failed: number
 }
 
@@ -45,7 +46,7 @@ export default function TransactionStatusWidget() {
   const total = status.processed + status.imported + status.failed
   const slices = [
     { name: 'Processed', value: status.processed, color: '#10b981' },
-    { name: 'Pending',   value: status.imported,  color: theme.textMuted },
+    { name: 'Pending',   value: status.pending,   color: theme.textMuted },
     { name: 'Failed',    value: status.failed,     color: theme.danger },
   ].filter(d => d.value > 0)
 
@@ -71,7 +72,7 @@ export default function TransactionStatusWidget() {
       <div style={{ marginTop: 4 }}>
         {[
           { label: 'Processed', value: status.processed, color: '#10b981' },
-          { label: 'Pending',   value: status.imported,  color: theme.textMuted },
+          { label: 'Pending',   value: status.pending,   color: theme.textMuted },
           { label: 'Failed',    value: status.failed,    color: theme.danger },
         ].map(d => (
           <div key={d.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: 3 }}>

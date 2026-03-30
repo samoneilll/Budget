@@ -131,7 +131,8 @@ class ClaudeCategorizationService
       messages:    [{ role: "user", content: payload.to_json }]
     )
 
-    response.content.first.input[:results]
+    input = response.content.first.input
+    input[:results] || input["results"] || []
   end
 
   def apply_results(transactions, results)
