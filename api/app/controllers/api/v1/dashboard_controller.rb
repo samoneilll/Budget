@@ -78,7 +78,11 @@ module Api
           fixed_expenses_total: FixedExpense.sum(:fortnightly_amount),
           categories:           categories,
           transaction_status: Transaction.group(:processing_status).count.then { |c|
-            { processed: c['processed'] || 0, imported: c['imported'] || 0, failed: c['failed'] || 0 }
+            pending = Transaction.where(processing_status: 'imported')
+              .where("haiku_is_transfer = false OR haiku_is_transfer IS NULL")
+              .where("is_transfer = false OR is_transfer IS NULL")
+              .count
+            { processed: c['processed'] || 0, imported: pending, failed: c['failed'] || 0 }
           },
           account_spending: {
             general:  (account_spending_raw[general_id]&.abs  || 0),
