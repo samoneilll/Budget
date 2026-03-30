@@ -14,8 +14,8 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3000:3000"
     volumes:
       - db_data:/data/db
     environment:
@@ -30,6 +30,23 @@ services:
     depends_on:
       - postgres
     restart: unless-stopped
+    networks:
+      - traefik_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.budgetrails.entrypoints: https
+      traefik.http.routers.budgetrails.rule: Host(`budgetrails.internal.wharengatakaka.nz`)
+      traefik.http.routers.budgetrails.tls: "true"
+      traefik.http.services.budgetrails.loadbalancer.server.port: "2283"
+      # additions for Let's Encrypt
+      traefik.http.routers.budgetrails.tls.certresolver: letsencrypt
+      traefik.http.routers.budgetrails.middlewares: budgetrails-headers
+      # security headers
+      traefik.http.middlewares.budgetrails-headers.headers.customResponseHeaders.Strict-Transport-Security: "max-age=31536000; includeSubDomains; preload"
+      traefik.http.middlewares.budgetrails-headers.headers.customResponseHeaders.X-Content-Type-Options: "nosniff"
+      traefik.http.middlewares.budgetrails-headers.headers.customResponseHeaders.X-Frame-Options: "SAMEORIGIN"
+      traefik.http.middlewares.budgetrails-headers.headers.customResponseHeaders.X-XSS-Protection: "1; mode=block"
+      traefik.http.middlewares.budgetrails-headers.headers.customResponseHeaders.Referrer-Policy: "strict-origin-when-cross-origin"
 
   worker:
     build:
@@ -58,6 +75,8 @@ services:
     depends_on:
       - api
     restart: unless-stopped
+    networks:
+      - traefik_network
     labels:
       traefik.enable: "true"
       traefik.http.routers.budget.entrypoints: https
