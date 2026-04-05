@@ -8,6 +8,7 @@ const navItems = [
   { to: '/budget',       label: 'Budget' },
   { to: '/savings',      label: 'Savings' },
   { to: '/mortgage',     label: 'Mortgage' },
+  { to: '/flow',         label: 'Flow' },
 ]
 
 export default function Layout() {

@@ -6,6 +6,7 @@ import Budget from './pages/Budget'
 import Savings from './pages/Savings'
 import Mortgage from './pages/Mortgage'
 import Transactions from './pages/Transactions'
+import Flow from './pages/Flow'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="savings" element={<Savings />} />
             <Route path="mortgage" element={<Mortgage />} />
             <Route path="transactions" element={<Transactions />} />
+            <Route path="flow" element={<Flow />} />
           </Route>
         </Routes>
       </BrowserRouter>
