@@ -42,6 +42,7 @@ services:
       # additions for Let's Encrypt
       traefik.http.routers.budgetrails.tls.certresolver: letsencrypt
       traefik.http.routers.budgetrails.middlewares: budgetrails-headers
+      com.centurylinklabs.watchtower.enable: "false"
       # security headers
       traefik.http.middlewares.budgetrails-headers.headers.customResponseHeaders.Strict-Transport-Security: "max-age=31536000; includeSubDomains; preload"
       traefik.http.middlewares.budgetrails-headers.headers.customResponseHeaders.X-Content-Type-Options: "nosniff"
@@ -88,6 +89,7 @@ services:
       # additions for Let's Encrypt
       traefik.http.routers.budget.tls.certresolver: letsencrypt
       traefik.http.routers.budget.middlewares: budget-headers
+      com.centurylinklabs.watchtower.enable: "false"
       # security headers
       traefik.http.middlewares.budget-headers.headers.customResponseHeaders.Strict-Transport-Security: "max-age=31536000; includeSubDomains; preload"
       traefik.http.middlewares.budget-headers.headers.customResponseHeaders.X-Content-Type-Options: "nosniff"
